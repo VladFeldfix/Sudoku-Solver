@@ -2,14 +2,12 @@ class main:
     def __init__(self):
         # global vars
         self.board = []
+        self.current_state = ""
         
         # actions
         self.setup()
         self.read()
-        self.current_state = ""
-        for x in range(10):
-            self.solve()
-            self.display()
+        self.start()
     
     def setup(self):
         # set up board
@@ -43,28 +41,36 @@ class main:
                 if ch != "0":
                     self.board[i].allowed = [ch]
                 i += 1
-        
-        #self.display()
     
-    def solve(self):
+    def start(self):
         # clear what is not allowed
-        for node in self.board:
-            if len(node.allowed) == 1:
-                # hor
-                for n in self.board:
-                    if n.x == node.x and n.y != node.y:
-                        if node.allowed[0] in n.allowed:
-                            n.allowed.remove(node.allowed[0])
-                    if n.y == node.y and n.x != node.x:
-                        if node.allowed[0] in n.allowed:
-                            n.allowed.remove(node.allowed[0])
-                    if n.sec == node.sec and n.x != node.x and n.y != node.y:
-                        if node.allowed[0] in n.allowed:
-                            n.allowed.remove(node.allowed[0])
-        
-        
+        while self.go_again():
+            for node in self.board:
+                if len(node.allowed) == 1:
+                    # hor
+                    for n in self.board:
+                        if n.x == node.x and n.y != node.y:
+                            if node.allowed[0] in n.allowed:
+                                n.allowed.remove(node.allowed[0])
+                        if n.y == node.y and n.x != node.x:
+                            if node.allowed[0] in n.allowed:
+                                n.allowed.remove(node.allowed[0])
+                        if n.sec == node.sec and n.x != node.x and n.y != node.y:
+                            if node.allowed[0] in n.allowed:
+                                n.allowed.remove(node.allowed[0])
+        self.finish()
+
+    def go_again(self):
+        # determine if the sudoku is solved, if not, solve again
+        for n in self.board:
+            if len(n.allowed) > 1:
+                current_state = self.create_visual_table()
+                if self.current_state != current_state:
+                    self.current_state = current_state
+                    return True
+        return False
     
-    def display(self):
+    def create_visual_table(self):
         lines = ""
         col = 1
         row = 1
@@ -90,11 +96,11 @@ class main:
                 if row == 4 or row == 7:
                     lines += "-"*103+"\n"
                     delimiter = True
-        print(lines)
-        if self.current_state != lines:
-            self.current_state = lines
-            print("state update")
-        print("*"*150)
+        return lines
+
+    def finish(self):
+        current_state = self.create_visual_table()
+        print(current_state)
 
 class node:
     def __init__(self, x, y, sec):
