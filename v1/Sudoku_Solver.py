@@ -5,10 +5,12 @@ class Sudoku_Solver:
         self.states = [] # a list of saved board states
         self.selected_node = None # the currently selected node
         self.N = -1 # the index of the allwed list of the 
+        
         # go
         self.set_board()
     
     def set_board(self):
+        print("Set board")
         # setup an empty board
         sec = 0
         i = 1
@@ -27,6 +29,7 @@ class Sudoku_Solver:
         self.load_from_file()
 
     def load_from_file(self):
+        print("Load from file")
         # load data from file
         file = open("board.txt")
         lines = file.readlines()
@@ -47,6 +50,7 @@ class Sudoku_Solver:
         self.clear()
 
     def clear(self):
+        print("Clear")
         go_again = True
         current_state = ""
         while go_again:
@@ -81,7 +85,9 @@ class Sudoku_Solver:
                 result = "OK"
             if len(node.allowed) == 0 :
                 result = "BAD"
-
+                break
+        print(self.draw_table())
+        print(" - "+result)
         if result == "OK":
             self.save()
         
@@ -92,10 +98,17 @@ class Sudoku_Solver:
             self.win()
 
     def save(self):
-        self.states.append([self.board, self.selected_node, self.N])
+        if self.selected_node != None:
+            print("Save: "+str(self.selected_node.x)+", "+str(self.selected_node.y)+", "+str(self.N))
+        else:
+            print("Save: No node selected, "+str(self.N))
+        self.states.append([self.board.copy(), self.selected_node, self.N])
+        self.N = -1
+        self.selected_node = None
         self.move()
 
     def move(self):
+        print("Move")
         # raise N
         self.N += 1
         
@@ -105,32 +118,49 @@ class Sudoku_Solver:
             smallest_allowed_list = 9
             self.selected_node = None
             for node in self.board:
-                if len(node.allowed) < smallest_allowed_list:
+                if len(node.allowed) < smallest_allowed_list and len(node.allowed) > 1:
                     smallest_allowed_list = len(node.allowed)
                     self.selected_node = node
+                    print("Select node: ("+str(self.selected_node.x)+","+str(self.selected_node.y)+") "+str(self.selected_node.allowed)+"  N="+str(self.N))
         
         # set the number of the selected node
         if self.N < len(self.selected_node.allowed):
             self.selected_node.allowed = [self.selected_node.allowed[self.N]]
-        
+            can_move = True
+        else:
+            can_move = False
+
+        if self.selected_node != None:
+            print("Selected node: ("+str(self.selected_node.x)+","+str(self.selected_node.y)+") Number: "+str(self.selected_node.allowed)+"  N="+str(self.N))
+
         # determine if can move
-        can_move = True
         if can_move:
+            print("Can move")
+            input(">")
             self.clear()
         else:
+            print("Can't move")
+            input(">")
             self.go_back()
 
     def go_back(self):
+        print("Go back to this")
+        print(self.draw_table())
+        self.board = self.states[-2][0]
+        self.selected_node = self.states[-2][1]
+        self.N = self.states[-2][2]
+        self.states = self.states[:-2]
         self.move()
 
     def win(self):
         print(self.draw_board())
 
     def draw_table(self):
-        lines = ""
+        lines = "   1          2          3          |  4          5          6          |  7          8          9\n"
         col = 1
         row = 1
         delimiter = False
+        lines += str(row)+". "
         for n in self.board:
             #lines += str(n.sec)+"."
             for i in range(1,10):
@@ -142,7 +172,7 @@ class Sudoku_Solver:
             col += 1
             lines += "  "
             if col == 10:
-                lines += "\n"
+                lines += "\n"+str(row+1)+". "
                 col = 1
                 row += 1
                 delimiter = False
@@ -150,8 +180,10 @@ class Sudoku_Solver:
                 lines += "|  "
             if not delimiter:
                 if row == 4 or row == 7:
-                    lines += "-"*103+"\n"
+                    lines = lines[:-3]
+                    lines += "-"*106+"\n"+str(row)+". "
                     delimiter = True
+        lines = lines[:-4]
         return lines
 
 class Node:
