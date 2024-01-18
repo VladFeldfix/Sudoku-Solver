@@ -1,0 +1,1 @@
+pyinstaller -i favicon.ico --onefile --noconsole Sudoku-Solver.py
