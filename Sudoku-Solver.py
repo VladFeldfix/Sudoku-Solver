@@ -28,7 +28,7 @@ class SudokuSolver:
         self.root = tkinter.Tk()
         self.root.geometry("363x399")
         self.root.minsize(363,399)
-        self.root.title("Sudoku Solver v5.0")
+        self.root.title("Sudoku Solver v1.0")
         self.root.protocol("WM_DELETE_WINDOW", self.exit)
         self.root.iconbitmap("favicon.ico")
         self.root.columnconfigure(0, weight=1)
