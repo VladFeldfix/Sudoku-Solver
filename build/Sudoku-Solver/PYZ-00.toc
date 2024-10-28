@@ -1,4 +1,4 @@
-('D:\\Users\\Vlad\\Projects\\Applications\\Sudoku-Solver\\build\\Sudoku-Solver\\PYZ-00.pyz',
+('D:\\Users\\Vlad\\Projects\\Applicationss\\Sudoku-Solver\\build\\Sudoku-Solver\\PYZ-00.pyz',
  [('inspect',
    'C:\\Users\\HP '
    'User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\inspect.py',
@@ -343,6 +343,10 @@
    'C:\\Users\\HP '
    'User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\ast.py',
    'PYMODULE'),
+  ('_py_abc',
+   'C:\\Users\\HP '
+   'User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\_py_abc.py',
+   'PYMODULE'),
   ('getpass',
    'C:\\Users\\HP '
    'User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\getpass.py',
@@ -383,17 +387,13 @@
    'C:\\Users\\HP '
    'User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\http\\client.py',
    'PYMODULE'),
-  ('stringprep',
-   'C:\\Users\\HP '
-   'User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\stringprep.py',
-   'PYMODULE'),
   ('tracemalloc',
    'C:\\Users\\HP '
    'User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\tracemalloc.py',
    'PYMODULE'),
-  ('_py_abc',
+  ('stringprep',
    'C:\\Users\\HP '
-   'User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\_py_abc.py',
+   'User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\stringprep.py',
    'PYMODULE'),
   ('threading',
    'C:\\Users\\HP '
@@ -444,5 +444,5 @@
    'User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\tkinter\\constants.py',
    'PYMODULE'),
   ('functions',
-   'D:\\Users\\Vlad\\Projects\\Applications\\Sudoku-Solver\\functions.py',
+   'D:\\Users\\Vlad\\Projects\\Applicationss\\Sudoku-Solver\\functions.py',
    'PYMODULE')])
